@@ -9,23 +9,25 @@ export default new Vuex.Store({
       { icon: "fa-clipboard-list", name: "task" },
       { icon: "fa-location-dot", name: "location" },
     ],
-    acess_token:null,
+    acess_token: null,
     selectedtab: "task",
     tasks: [],
-    checke_ins:[]
+    checke_ins: []
   },
   getters: {
     getTabs: (state) => state.tabs,
     getSelectedTab: (state) => state.selectedtab,
     getTask: (state) => state.tasks,
-    getAccessTokan:(state)=>state.acess_token,
-    getCheckins:(state)=>state.checke_ins
+    getAccessTokan: (state) => state.acess_token,
+    getCheckins: (state) => state.checke_ins
   },
   mutations: {
     SET_TAB(state, payload) {
       state.selectedtab = payload;
     },
     SET_TASK(state, payload) {
+      console.log("🚀 ~ file: index.js:29 ~ SET_TASK ~ state:", state);
+      console.log("🚀 ~ file: index.js:29 ~ SET_TASK ~ payload:", payload);
       state.Tasks = payload;
       localStorage.setItem("task", JSON.stringify(state.Tasks));
     },
@@ -33,13 +35,13 @@ export default new Vuex.Store({
       state.Tasks.push(payload);
       // localStorage.setItem("task", JSON.stringify(state.Tasks));
     },
-    SET_ACCESS_TOKEN(state,payload){
-      state.acess_token = payload
+    SET_ACCESS_TOKEN(state, payload) {
+      state.acess_token = payload;
     },
-    SET_CHECK_INS(state,payload){
+    SET_CHECK_INS(state, payload) {
       state.checke_ins = payload;
     },
-    SET_TASKS(state,payload){
+    SET_TASKS(state, payload) {
       state.tasks = payload;
     }
   },
@@ -53,26 +55,26 @@ export default new Vuex.Store({
     append_task({ commit }, payload) {
       commit("APPEND_TASK", payload);
     },
-    set_access_token({commit},payload){
-      commit('SET_ACCESS_TOKEN',payload);
+    set_access_token({ commit }, payload) {
+      commit('SET_ACCESS_TOKEN', payload);
     },
-    async set_checke_ins({commit}){
-      const res = await axios.get('https://todo-test.digitaltolk.com/api/checkins',{
-        headers:{
+    async set_checke_ins({ commit }) {
+      const res = await axios.get('https://todo-test.digitaltolk.com/api/checkins', {
+        headers: {
           "Accept": "application/json",
           "Authorization": "Bearer Zl49StyUu9721TFoRHfDqGmEVikCKNhJayGUgDvK"
         }
       });
-      commit('SET_CHECK_INS',res.data.checkins);
+      commit('SET_CHECK_INS', res.data.checkins);
     },
-    async set_tasks({commit}){
-      const res = await axios.get('https://todo-test.digitaltolk.com/api/tasks',{
-        headers:{
+    async set_tasks({ commit }) {
+      const res = await axios.get('https://todo-test.digitaltolk.com/api/tasks', {
+        headers: {
           "Accept": "application/json",
           "Authorization": "Bearer Zl49StyUu9721TFoRHfDqGmEVikCKNhJayGUgDvK"
         }
       });
-      commit("SET_TASKS",res.data.tasks);
+      commit("SET_TASKS", res.data.tasks);
     }
   },
   modules: {},
